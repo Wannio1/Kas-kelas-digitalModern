@@ -1,0 +1,106 @@
+/* Payment Logo Standardized */
+.pm-logo {
+    height: 32px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.pm-card-inner {
+    padding: 12px;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.95);
+    border: 2px solid transparent;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.pm-card input:checked+.pm-card-inner {
+    background: #ffffff;
+    border-color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.3);
+}
+
+/* Payment Selector List Style */
+.payment-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 2rem;
+}
+
+.pm-item {
+    cursor: pointer;
+    display: block;
+}
+
+.pm-item input {
+    display: none;
+}
+
+.pm-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    transition: all 0.2s ease;
+}
+
+.pm-info {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* Logo container styling */
+.pm-img {
+    width: 45px;
+    height: 45px;
+    object-fit: contain;
+    background: white;
+    padding: 8px;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pm-label {
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+}
+
+/* Custom Radio Circle */
+.pm-radio-circle {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    position: relative;
+    transition: all 0.2s;
+}
+
+/* Checked State */
+.pm-item input:checked+.pm-row {
+    background: rgba(16, 185, 129, 0.15);
+    border-color: var(--primary);
+}
+
+.pm-item input:checked+.pm-row .pm-radio-circle {
+    border-color: var(--primary);
+    background: var(--primary);
+    box-shadow: inset 0 0 0 5px #022c22;
+}
+
+.pm-row:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+}
