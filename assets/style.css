@@ -649,14 +649,365 @@ td:last-child {
     color: white;
 }
 
-/* Responsive */
-@media (max-width: 640px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr;
+/* ========================================
+   RESPONSIVE DESIGN - MOBILE & TABLET
+   ======================================== */
+
+/* Mobile Devices: 320px - 767px */
+@media (max-width: 767px) {
+
+    /* Container & Spacing */
+    .container {
+        padding: 1rem;
     }
 
+    /* Auth Pages */
+    .auth-card {
+        padding: 2rem 1.5rem;
+        border-radius: 20px;
+    }
+
+    .auth-title {
+        font-size: 1.75rem;
+    }
+
+    .auth-subtitle {
+        font-size: 0.875rem;
+    }
+
+    /* Navigation */
+    .dashboard-nav {
+        padding: 0.875rem 1rem;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+    }
+
+    .nav-brand {
+        font-size: 1.25rem;
+    }
+
+    .nav-user {
+        width: 100%;
+        justify-content: space-between;
+        gap: 0.75rem;
+    }
+
+    .user-name {
+        font-size: 0.85rem;
+        flex: 1;
+        text-align: left;
+    }
+
+    .btn-logout {
+        padding: 6px 14px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+
+    /* Dashboard Grid */
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    /* Stat Cards */
+    .stat-card {
+        padding: 1.25rem;
+        border-radius: 16px;
+    }
+
+    .stat-label {
+        font-size: 0.7rem;
+    }
+
+    .stat-value {
+        font-size: 1.75rem;
+    }
+
+    /* Tables */
     .table-container {
         padding: 1rem;
         overflow-x: auto;
+        border-radius: 16px;
+    }
+
+    .table-container h2 {
+        font-size: 1.125rem;
+        margin-bottom: 0.75rem;
+    }
+
+    table {
+        font-size: 0.85rem;
+        min-width: 600px;
+        /* Force horizontal scroll for better readability */
+    }
+
+    th {
+        padding: 0.75rem 0.5rem;
+        font-size: 0.7rem;
+    }
+
+    td {
+        padding: 0.75rem 0.5rem;
+    }
+
+    /* Status Badges */
+    .status-badge {
+        padding: 3px 10px;
+        font-size: 0.7rem;
+    }
+
+    /* Action Buttons */
+    .btn-action {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+    }
+
+    .action-group {
+        gap: 6px;
+    }
+
+    /* Modals */
+    .modal-content {
+        padding: 2rem 1.5rem;
+        border-radius: 20px;
+        max-width: 95%;
+        max-height: 90vh;
+    }
+
+    .modal-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .modal-header p {
+        font-size: 0.85rem;
+    }
+
+    /* QR Code */
+    .qr-frame {
+        width: 180px;
+        height: 180px;
+        padding: 0.75rem;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+    }
+
+    /* Payment Selector */
+    .payment-selector {
+        gap: 10px;
+        margin-bottom: 1.5rem;
+    }
+
+    .pm-card-inner {
+        padding: 10px;
+        height: 70px;
+    }
+
+    .pm-logo {
+        height: 28px;
+    }
+
+    .pm-name {
+        font-size: 0.7rem;
+    }
+
+    /* Buttons */
+    .btn-primary,
+    .btn-confirm {
+        padding: 12px;
+        font-size: 0.95rem;
+        min-height: 44px;
+        /* Touch-friendly */
+    }
+
+    .btn-deeplink {
+        padding: 10px;
+        font-size: 0.9rem;
+        min-height: 44px;
+    }
+
+    /* Form Elements */
+    .form-group {
+        margin-bottom: 1rem;
+    }
+
+    .form-label {
+        font-size: 0.8rem;
+    }
+
+    .form-input {
+        padding: 12px 16px;
+        font-size: 0.95rem;
+        min-height: 44px;
+        /* Touch-friendly */
+    }
+
+    /* Close Button */
+    .btn-close {
+        font-size: 1.75rem;
+        width: 36px;
+        height: 36px;
+        min-height: 44px;
+        min-width: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* Small Mobile Devices: 320px - 480px */
+@media (max-width: 480px) {
+    .auth-card {
+        padding: 1.75rem 1.25rem;
+    }
+
+    .auth-title {
+        font-size: 1.5rem;
+    }
+
+    .stat-value {
+        font-size: 1.5rem;
+    }
+
+    .modal-content {
+        padding: 1.5rem 1.25rem;
+    }
+
+    .qr-frame {
+        width: 160px;
+        height: 160px;
+    }
+
+    table {
+        font-size: 0.8rem;
+        min-width: 550px;
+    }
+
+    th,
+    td {
+        padding: 0.625rem 0.375rem;
+    }
+}
+
+/* Tablet Devices: 768px - 1024px */
+@media (min-width: 768px) and (max-width: 1024px) {
+
+    /* Container */
+    .container {
+        padding: 1.5rem;
+    }
+
+    /* Dashboard Grid - 2 columns on tablet */
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.25rem;
+    }
+
+    /* Navigation */
+    .dashboard-nav {
+        padding: 1rem 1.5rem;
+    }
+
+    .nav-brand {
+        font-size: 1.375rem;
+    }
+
+    /* Auth Card */
+    .auth-card {
+        padding: 2.5rem 2rem;
+    }
+
+    /* Tables */
+    .table-container {
+        padding: 1.25rem;
+    }
+
+    table {
+        font-size: 0.9rem;
+    }
+
+    th,
+    td {
+        padding: 0.875rem;
+    }
+
+    /* Modals */
+    .modal-content {
+        max-width: 480px;
+        padding: 2.25rem 2rem;
+    }
+
+    /* QR Code */
+    .qr-frame {
+        width: 200px;
+        height: 200px;
+    }
+}
+
+/* Landscape Orientation Adjustments */
+@media (max-height: 600px) and (orientation: landscape) {
+    .modal-content {
+        max-height: 95vh;
+        padding: 1.5rem;
+    }
+
+    .qr-frame {
+        width: 140px;
+        height: 140px;
+        margin-bottom: 0.75rem;
+    }
+
+    .modal-header {
+        margin-bottom: 1rem;
+    }
+
+    .modal-header h2 {
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+    }
+
+    .modal-header p {
+        font-size: 0.8rem;
+        margin-bottom: 1rem;
+    }
+
+    .payment-selector {
+        margin-bottom: 1rem;
+    }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+
+    /* Ensure all interactive elements are touch-friendly */
+    button,
+    a,
+    .btn-action,
+    .pm-card,
+    .pm-item {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    /* Increase tap target for radio buttons */
+    .pm-card-inner,
+    .pm-row {
+        min-height: 56px;
+    }
+
+    /* Remove hover effects on touch devices */
+    .stat-card:hover,
+    .btn-primary:hover,
+    .btn-confirm:hover {
+        transform: none;
+    }
+
+    /* Add active states instead */
+    .btn-primary:active,
+    .btn-confirm:active {
+        transform: scale(0.98);
+        opacity: 0.9;
     }
 }

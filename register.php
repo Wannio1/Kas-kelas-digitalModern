@@ -225,6 +225,98 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         .strength-weak { width: 33%; background: #ef4444; }
         .strength-medium { width: 66%; background: #f59e0b; }
         .strength-strong { width: 100%; background: var(--primary); }
+
+        /* ========================================
+           RESPONSIVE - MOBILE & TABLET
+           ======================================== */
+
+        /* Mobile Devices: 320px - 767px */
+        @media (max-width: 767px) {
+            body {
+                padding: 1rem;
+            }
+
+            .register-container {
+                padding: 2rem 1.5rem;
+                border-radius: 20px;
+            }
+
+            .register-header h1 {
+                font-size: 1.5rem;
+            }
+
+            .register-header p {
+                font-size: 0.85rem;
+            }
+
+            .form-group {
+                margin-bottom: 1.25rem;
+            }
+
+            .form-group label {
+                font-size: 0.85rem;
+            }
+
+            .form-group input {
+                padding: 0.75rem 0.875rem;
+                font-size: 0.9rem;
+                min-height: 44px; /* Touch-friendly */
+            }
+
+            .btn-register {
+                padding: 0.875rem;
+                font-size: 0.95rem;
+                min-height: 44px;
+            }
+
+            .alert {
+                padding: 0.875rem;
+                font-size: 0.85rem;
+            }
+
+            .login-link {
+                font-size: 0.85rem;
+            }
+        }
+
+        /* Small Mobile: 320px - 480px */
+        @media (max-width: 480px) {
+            .register-container {
+                padding: 1.75rem 1.25rem;
+            }
+
+            .register-header h1 {
+                font-size: 1.375rem;
+            }
+
+            .register-header {
+                margin-bottom: 2rem;
+            }
+        }
+
+        /* Tablet: 768px - 1024px */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .register-container {
+                padding: 2.5rem 2rem;
+                max-width: 500px;
+            }
+
+            .register-header h1 {
+                font-size: 1.875rem;
+            }
+        }
+
+        /* Touch Device Optimizations */
+        @media (hover: none) and (pointer: coarse) {
+            .btn-register:hover {
+                transform: none;
+            }
+
+            .btn-register:active {
+                transform: scale(0.98);
+                opacity: 0.9;
+            }
+        }
     </style>
 </head>
 <body>
