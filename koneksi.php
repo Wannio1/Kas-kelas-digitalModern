@@ -28,4 +28,13 @@ try {
         die("Connection failed: " . $e2->getMessage());
     }
 }
+
+// Midtrans Configuration
+if (file_exists(__DIR__ . '/config_midtrans.php')) {
+    require_once __DIR__ . '/config_midtrans.php';
+} else {
+    // Fallback or error if config missing
+    die('Midtrans configuration not found. Please create config_midtrans.php based on config_midtrans.example.php');
+}
+
 ?>

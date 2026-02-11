@@ -23,7 +23,7 @@ async function submitCashVerification() {
         const formData = new FormData();
         formData.append('amount', amount);
 
-        const response = await fetch('api.php?action=submit_cash_payment', {
+        const response = await fetch('proses.php?action=submit_cash_payment', {
             method: 'POST',
             body: formData
         });
@@ -46,7 +46,7 @@ async function submitCashVerification() {
 // Fetch Pending Cash Verifications for Treasurer
 async function fetchPendingVerifications() {
     try {
-        const response = await fetch('api.php?action=get_pending_verifications');
+        const response = await fetch('proses.php?action=get_pending_verifications');
         const data = await response.json();
 
         if (data.success && data.verifications) {
@@ -70,7 +70,7 @@ async function verifyCashPayment(transactionId, action) {
         formData.append('transaction_id', transactionId);
         formData.append('verification_action', action);
 
-        const response = await fetch('api.php?action=verify_cash_payment', {
+        const response = await fetch('proses.php?action=verify_cash_payment', {
             method: 'POST',
             body: formData
         });
@@ -108,18 +108,25 @@ function renderPendingVerifications(verifications) {
     verifications.forEach(v => {
         const date = new Date(v.transaction_date).toLocaleString('id-ID');
         html += `
-            <div style="background: rgba(255, 255, 255, 0.05); padding: 16px; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1);">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <div class="card" style="padding: 1rem; margin-bottom: 0.75rem; border: 1px solid var(--border-subtle);">
+                <div class="flex-between" style="margin-bottom: 0.75rem;">
                     <div>
-                        <p style="color: var(--text-primary); font-weight: 700; margin-bottom: 4px;">${v.full_name}</p>
-                        <p style="color: var(--text-muted); font-size: 0.85rem;">${date}</p>
+                        <p style="color: var(--text-main); font-weight: 600; margin-bottom: 0.25rem;">${v.full_name}</p>
+                        <p class="text-muted" style="font-size: 0.85rem;">${date}</p>
                     </div>
                     <p style="color: var(--primary); font-weight: 700; font-size: 1.1rem;">Rp ${parseFloat(v.amount).toLocaleString('id-ID')}</p>
                 </div>
-                <div style="display: flex; gap: 8px;">
-                    <button onclick="verifyCashPayment(${v.id}, 'approve')" style="flex: 1; padding: 10px; background: linear-gradient(to right, #10b981, #059669); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">✅ Setujui</button>
-                    <button onclick="verifyCashPayment(${v.id}, 'reject')" style="flex: 1; padding: 10px; background: linear-gradient(to right, #ef4444, #dc2626); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">❌ Tolak</button>
-                </div>
+                    <div style="display: flex; gap: 0.5rem; align-items: center;">
+                        <button onclick="verifyCashPayment(${v.id}, 'approve')" class="btn btn-primary" title="Terima" style="padding: 0.5rem;">
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+                        <button onclick="verifyCashPayment(${v.id}, 'reject')" class="btn btn-danger" title="Tolak" style="padding: 0.5rem;">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                         <button onclick="viewProof('${v.proof_image}')" class="btn btn-secondary" title="Lihat Bukti" style="padding: 0.5rem; ${v.payment_method === 'cash' ? 'display:none;' : ''}">
+                            <i class="fa-solid fa-eye"></i>
+                        </button>
+                    </div>
             </div>
         `;
     });
@@ -127,3 +134,4 @@ function renderPendingVerifications(verifications) {
     html += '</div>';
     container.innerHTML = html;
 }
+

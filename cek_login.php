@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'config.php';
+require 'koneksi.php';
 
 header('Content-Type: application/json');
 
@@ -36,3 +36,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
