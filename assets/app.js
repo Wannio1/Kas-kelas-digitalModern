@@ -498,3 +498,17 @@ function renderTable(transactions) {
     });
 }
 
+
+// Close sidebar when clicking outside
+document.addEventListener('click', (e) => {
+    const sidebar = document.querySelector('.nav-menu');
+    const hamburger = document.querySelector('.hamburger-btn');
+    const overlay = document.querySelector('.sidebar-overlay');
+
+    if (sidebar && sidebar.classList.contains('active') &&
+        !sidebar.contains(e.target) &&
+        (!hamburger || !hamburger.contains(e.target)) &&
+        (!overlay || !overlay.contains(e.target))) {
+        toggleSidebar();
+    }
+});

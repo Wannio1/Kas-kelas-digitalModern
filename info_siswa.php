@@ -36,14 +36,16 @@ try {
             <i class="fa-solid fa-wallet" style="color: var(--primary);"></i>
             Kas Kelas <?php echo htmlspecialchars($schoolName); ?>
         </div>
+
         <div class="nav-menu">
-            <!-- Empty menu for student list page, or add dashboard link here if preferred -->
-        </div>
-        
-        <div class="nav-user">
-            <a href="beranda.php" class="btn btn-secondary" style="font-size: 0.9rem;">
-                <i class="fa-solid fa-arrow-left"></i> Kembali
+            <a href="beranda.php" class="nav-link">
+                <i class="fa-solid fa-table-columns"></i> <span class="nav-text">Dashboard</span>
             </a>
+            
+            <a href="info_siswa.php" class="nav-link active">
+                <i class="fa-solid fa-user-graduate"></i> <span class="nav-text">Data Siswa</span>
+            </a>
+        </div>
         
         <div class="nav-user">
             <div class="user-info" style="display: flex; align-items: center; gap: 0.5rem;">

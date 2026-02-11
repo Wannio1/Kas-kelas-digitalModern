@@ -71,11 +71,7 @@ try {
         </div>
     </nav>
 
-    <?php if ($role === 'murid'): ?>
-    <button onclick="window.location.href='info_siswa.php'" class="btn btn-primary" style="position: fixed; bottom: 30px; right: 30px; z-index: 100; box-shadow: var(--shadow-lg); border-radius: 50px; padding: 12px 24px;">
-        <i class="fa-solid fa-users" style="font-size: 1.25rem;"></i> Jumlah Siswa
-    </button>
-    <?php endif; ?>
+
 
     <div class="container animate-fade-in">
         <div class="flex-between mb-4" style="align-items: flex-end;">
@@ -110,27 +106,30 @@ try {
             <?php endif; ?>
 
             <?php if ($role === 'murid'): ?>
-            <div class="card" style="grid-column: span 2; display: flex; gap: 1rem;">
-                <button onclick="document.getElementById('paymentModal').style.display = 'flex'" class="btn btn-primary w-full" style="padding: 1.5rem; border-radius: var(--radius-lg); background: linear-gradient(135deg, #059669, #10b981);">
-                    <i class="fa-solid fa-globe" style="font-size: 2rem;"></i>
-                    <div style="text-align: left;">
-                        <div style="font-size: 1.1rem; font-weight: 700;">Bayar Online</div>
-                        <div style="font-size: 0.85rem; opacity: 0.9;">QRIS, E-Wallet, VA (Otomatis)</div>
+
+
+
+            <div class="payment-actions">
+                <button onclick="document.getElementById('paymentModal').style.display = 'flex'" class="btn btn-payment btn-online">
+                    <i class="fa-solid fa-globe"></i>
+                    <div class="btn-payment-content">
+                        <div class="btn-payment-title">Bayar Online</div>
+                        <div class="btn-payment-subtitle">QRIS, E-Wallet, VA (Otomatis)</div>
                     </div>
                 </button>
                 
-                <button onclick="submitCashVerification()" class="btn btn-primary w-full" style="padding: 1.5rem; border-radius: var(--radius-lg); background: linear-gradient(135deg, #d97706, #fbbf24);">
-                    <i class="fa-solid fa-money-bill" style="font-size: 2rem;"></i>
-                    <div style="text-align: left;">
-                        <div style="font-size: 1.1rem; font-weight: 700;">Bayar Tunai</div>
-                        <div style="font-size: 0.85rem; opacity: 0.9;">Verifikasi Manual</div>
+                <button onclick="openCashPaymentModal()" class="btn btn-payment btn-cash">
+                    <i class="fa-solid fa-money-bill"></i>
+                    <div class="btn-payment-content">
+                        <div class="btn-payment-title">Bayar Tunai</div>
+                        <div class="btn-payment-subtitle">Verifikasi Manual</div>
                     </div>
                 </button>
             </div>
             <?php endif; ?>
         </div>
         
-        <div class="dashboard-grid" style="grid-template-columns: 1fr 1fr; margin-top: 2rem;">
+        <div class="dashboard-grid grid-split" style="margin-top: 2rem;">
             <!-- Income Table -->
             <div class="table-container" style="height: 500px; display: flex; flex-direction: column;">
                 <div style="padding: 1.25rem; border-bottom: 1px solid var(--border-subtle); background: rgba(15, 23, 42, 0.5);">
@@ -181,6 +180,36 @@ try {
     </div>
 
     <?php if ($role === 'murid'): ?>
+    <!-- Cash Payment Modal -->
+    <div id="cashPaymentModal" class="modal-overlay" style="
+        position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); 
+        display: none; align-items: center; justify-content: center; z-index: 1000;
+        padding: 1rem;
+    ">
+        <div class="card animate-fade-in" style="max-width: 400px; width: 100%; padding: 2.5rem; text-align: center; position: relative; border: 1px solid rgba(255,255,255,0.1);">
+            <button onclick="closeCashPaymentModal()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer; transition: color 0.3s;" onmouseover="this.style.color='var(--danger)'" onmouseout="this.style.color='var(--text-muted)'">&times;</button>
+            
+            <div style="width: 80px; height: 80px; background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.2)); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem; border: 1px solid rgba(16, 185, 129, 0.3); box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);">
+                <i class="fa-solid fa-money-bill-wave" style="font-size: 2.5rem; color: #34d399;"></i>
+            </div>
+            
+            <h2 style="font-size: 1.75rem; margin-bottom: 0.5rem; font-weight: 700; background: linear-gradient(to right, #fff, #cbd5e1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Pembayaran Tunai</h2>
+            <p style="margin-bottom: 2rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">Silakan serahkan uang tunai ke Bendahara, lalu input nominalnya di sini untuk verifikasi.</p>
+            
+            <div class="form-group" style="text-align: left; margin-bottom: 2rem;">
+                <label class="form-label" style="display: flex; align-items: center; gap: 0.5rem;"><i class="fa-solid fa-coins" style="color: var(--primary);"></i> Nominal Pembayaran (Rp)</label>
+                <div style="position: relative;">
+                    <span style="position: absolute; left: 1rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); font-weight: 500;">Rp</span>
+                    <input type="number" id="cashAmount" class="form-input" placeholder="0" style="padding-left: 2.5rem; font-size: 1.1rem; font-weight: 600;">
+                </div>
+            </div>
+
+            <button onclick="processCashPayment()" class="btn btn-verification" id="btnCashPay">
+                <i class="fa-solid fa-paper-plane"></i> Kirim Permintaan
+            </button>
+        </div>
+    </div>
+
     <!-- Online Payment Modal (Midtrans) -->
     <div id="paymentModal" class="modal-overlay" style="
         position: fixed; inset: 0; background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); 
@@ -191,7 +220,7 @@ try {
             <button onclick="closePaymentModal()" style="position: absolute; top: 1rem; right: 1rem; background: none; border: none; color: var(--text-muted); font-size: 1.5rem; cursor: pointer;">&times;</button>
             <i class="fa-solid fa-credit-card" style="font-size: 3rem; color: var(--primary); margin-bottom: 1rem;"></i>
             <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Pembayaran Online</h2>
-            <p style="margin-bottom: 1.5rem;">Masukkan nominal pembayaran.</p>
+             <p style="margin-bottom: 1.5rem;">Masukkan nominal pembayaran.</p>
             
             <div class="form-group" style="text-align: left;">
                 <label class="form-label">Nominal (Rp)</label>
@@ -209,6 +238,18 @@ try {
         }
     </script>
     <?php endif; ?>
+
+    <!-- Floating Data Siswa Button (Desktop & Mobile) -->
+    <?php if ($role === 'murid'): ?>
+    <a href="info_siswa.php" class="fab-student" title="Data Siswa">
+        <i class="fa-solid fa-users"></i>
+        <span class="fab-label">Data Siswa</span>
+    </a>
+    <?php endif; ?>
+
+    <footer class="main-footer animate-fade-in">
+        <p>&copy; <?php echo date('Y'); ?> Kas Kelas <?php echo htmlspecialchars($schoolName); ?>. &bull; <span>Everywann Project</span></p>
+    </footer>
 
     <script>
         const USER_ROLE = "<?php echo $role; ?>";

@@ -1,23 +1,35 @@
-// Cash Verification Function for Students
-async function submitCashVerification() {
-    // Prompt user for amount
-    const amountInput = prompt('Masukkan jumlah uang tunai yang dibayarkan (Rp):');
+// Cash Verification Modal Functions
+function openCashPaymentModal() {
+    const modal = document.getElementById('cashPaymentModal');
+    if (modal) {
+        modal.style.display = 'flex';
+        // Focus on input
+        setTimeout(() => document.getElementById('cashAmount').focus(), 100);
+    }
+}
 
-    if (!amountInput || amountInput.trim() === '') {
-        alert('Nominal pembayaran harus diisi.');
+function closeCashPaymentModal() {
+    const modal = document.getElementById('cashPaymentModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.getElementById('cashAmount').value = '';
+    }
+}
+
+async function processCashPayment() {
+    const amountInput = document.getElementById('cashAmount').value;
+    const btn = document.getElementById('btnCashPay');
+
+    if (!amountInput || amountInput.trim() === '' || amountInput <= 0) {
+        alert('Mohon masukkan nominal yang valid.');
         return;
     }
 
-    const amount = parseInt(amountInput.replace(/\D/g, ''));
+    const amount = parseInt(amountInput);
+    const originalContent = btn.innerHTML;
 
-    if (isNaN(amount) || amount <= 0) {
-        alert('Nominal tidak valid. Harap masukkan angka yang benar.');
-        return;
-    }
-
-    if (!confirm(`Apakah Anda yakin akan mengajukan pembayaran tunai sebesar Rp ${amount.toLocaleString('id-ID')}?`)) {
-        return;
-    }
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Mengirim...';
 
     try {
         const formData = new FormData();
@@ -32,7 +44,7 @@ async function submitCashVerification() {
 
         if (data.success) {
             alert(data.message);
-            closeModal();
+            closeCashPaymentModal();
             fetchTransactions(); // Refresh list
         } else {
             alert('Gagal: ' + data.message);
@@ -40,6 +52,9 @@ async function submitCashVerification() {
     } catch (error) {
         console.error('Error:', error);
         alert('Terjadi kesalahan saat mengirim permintaan verifikasi.');
+    } finally {
+        btn.disabled = false;
+        btn.innerHTML = originalContent;
     }
 }
 
