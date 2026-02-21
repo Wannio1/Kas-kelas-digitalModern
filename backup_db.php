@@ -6,14 +6,13 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'bendahara') {
     die("Access denied");
 }
 
-$host = 'localhost';
-$user = 'root';
-$pass = '';
-$name = 'kas_kelas';
-
+// Variables $host, $username, $password, $dbname are imported from koneksi.php
 // Connect using mysqli for dump
-$mysqli = new mysqli($host, $user, $pass, $name);
-$mysqli->select_db($name); 
+$mysqli = new mysqli($host, $username, $password, $dbname);
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
+$mysqli->select_db($dbname); 
 $mysqli->query("SET NAMES 'utf8'");
 
 $tables = array();

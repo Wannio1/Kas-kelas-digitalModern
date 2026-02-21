@@ -108,20 +108,9 @@ async function fetchTransactions() {
                             day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'
                         });
                         const amount = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(t.amount);
-                        const statusColor = t.status === 'paid' ? 'var(--success)' : 'var(--warning)';
-                        const statusIcon = t.status === 'paid' ? '<i class="fa-solid fa-circle-check"></i>' : '<i class="fa-regular fa-clock"></i>';
-
-                        // For Treasurer: Show buttons to Approve/Reject if pending
-                        let actionHtml = '';
-                        if (USER_ROLE === 'bendahara' && t.status === 'pending') {
-                            actionHtml = `
-                    <div class="action-buttons">
-                        <button onclick="updateStatus(${t.id}, 'paid', ${t.amount})" class="btn-approve" title="Terima"><i class="fa-solid fa-check"></i></button>
-                        <button onclick="updateStatus(${t.id}, 'rejected')" class="btn-reject" title="Tolak"><i class="fa-solid fa-xmark"></i></button>
-                    </div>`;
-                        } else {
-                            actionHtml = `<span style="color:${statusColor}; font-weight:500; display:flex; align-items:center; gap:4px;">${statusIcon} ${t.status === 'paid' ? 'Lunas' : 'Menunggu'}</span>`;
-                        }
+                        // Status is always PAID here because backend filters it.
+                        // User requested "statusnya accept"
+                        actionHtml = `<span class="badge badge-success"><i class="fa-solid fa-circle-check"></i> Accepted</span>`;
 
                         const tr = document.createElement('tr');
                         tr.innerHTML = `

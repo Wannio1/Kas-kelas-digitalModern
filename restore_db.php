@@ -2,6 +2,10 @@
 session_start();
 require 'koneksi.php';
 
+// Increase limits for large restores
+set_time_limit(0);
+ini_set('memory_limit', '512M');
+
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'bendahara') {
     die("Access denied");
 }

@@ -79,9 +79,7 @@ try {
                 <h1 class="text-gradient" style="font-size: 1.8rem;">Manajemen Pengeluaran</h1>
                 <p>Catat dan pantau penggunaan dana kas kelas.</p>
             </div>
-            <button onclick="openAddModal()" class="btn btn-primary">
-                <i class="fa-solid fa-plus"></i> Tambah Pengeluaran
-            </button>
+
         </div>
 
         <div class="dashboard-grid">

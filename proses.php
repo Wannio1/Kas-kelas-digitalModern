@@ -76,6 +76,7 @@ try {
             SELECT t.*, u.full_name 
             FROM transactions t 
             JOIN users u ON t.user_id = u.id 
+            WHERE t.status = 'paid'
             ORDER BY t.transaction_date DESC
         ");
         
